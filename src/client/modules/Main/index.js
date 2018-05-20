@@ -6,6 +6,7 @@ import { changeSelectedCurrency } from '../../reducers/main';
 import { getOrders } from '../../reducers/orders';
 
 import Table from '../Table';
+import './styles.scss';
 
 class Main extends PureComponent {
   constructor(props) {
@@ -41,7 +42,8 @@ class Main extends PureComponent {
     }
     
     return (
-      <div className="Main">
+      <div className="main">
+        <div className='main__title'> Select currency </div>
 
         <select onChange={this.changeSelectedCurrency}>
             {Object.keys(currencies).map((key) =>(
@@ -52,21 +54,15 @@ class Main extends PureComponent {
         <button onClick={this.getOrders}> Get Orders </button>
           
         {orders.offers && orders.offers.length === 0 ?
-          <div> There are not offers </div>
+          <div className='main__error-message'> There are not offers </div>
           : orders.offers &&
-          <div>
-              <div> Offers </div>
-              <Table data={orders.demands} />
-          </div>
+              <Table title='Offers' data={orders.demands} />
         }
 
         {orders.demands && orders.demands.length === 0 ?
-          <div> There are not demands </div>
+          <div className='main__error-message'> There are not demands </div>
           : orders.demands &&
-          <div>
-            <div> Demands </div>
-            <Table data={orders.demands} />
-          </div>
+            <Table title='Demands' data={orders.demands} />
         }
         
       </div>

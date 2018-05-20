@@ -1,0 +1,20 @@
+.table{
+    margin: 20px 0px;
+
+    &__title{
+        font-size: 18px;
+        margin: 10px 0px;
+    }
+
+    td{
+        padding: 20px 20px 20px 0px;
+    }
+
+    tbody{
+        tr{
+            &:first-child{
+                font-weight: bold;
+            }
+        }
+    }
+}
