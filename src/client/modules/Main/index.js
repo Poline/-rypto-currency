@@ -1,8 +1,12 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 
-class Main extends PureComponent {
+import { getCurrencies } from '../../reducers/currencies';
 
+class Main extends PureComponent {
+  componentWillMount(){
+    this.props.getCurrencies();
+  }
   render() {
 
     return (
@@ -14,11 +18,13 @@ class Main extends PureComponent {
 }
 
 const mapStateToProps = (state) => ({
-
+  transactions: state.transactions,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-
+  getCurrencies: () => {
+    dispatch(getCurrencies());
+  },
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Main);
