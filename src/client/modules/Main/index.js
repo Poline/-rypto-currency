@@ -3,12 +3,14 @@ import { connect } from 'react-redux';
 
 import { getCurrencies } from '../../reducers/currencies';
 import { changeSelectedCurrency } from '../../reducers/main';
+import { getOrders } from '../../reducers/orders';
 
 class Main extends PureComponent {
   constructor(props) {
     super(props);
 
     this.changeSelectedCurrency = this.changeSelectedCurrency.bind(this);
+    this.getOrders = this.getOrders.bind(this);
   }
 
   componentWillMount(event){
@@ -16,8 +18,11 @@ class Main extends PureComponent {
   }
 
   changeSelectedCurrency(event){
-    debugger
     this.props.changeSelectedCurrency(event.target.value);
+  }
+
+  getOrders(){
+    this.props.getOrders(this.props.selectedCurrency);
   }
 
   render() {
@@ -27,9 +32,11 @@ class Main extends PureComponent {
 
         <select onChange={this.changeSelectedCurrency}>
             {Object.keys(currencies).map((key) =>(
-              <option key={currencies[key].name}>{currencies[key].name}</option>
+              <option key={currencies[key].name}>{key}</option>
             ))}
         </select>
+
+        <button onClick={this.getOrders}> Get Orders </button>
       </div>
     );
   }
@@ -37,6 +44,7 @@ class Main extends PureComponent {
 
 const mapStateToProps = (state) => ({
   currencies: state.currencies,
+  selectedCurrency: state.main.selectedCurrency,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -45,6 +53,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   changeSelectedCurrency: (selectedCurrency) => {
     dispatch(changeSelectedCurrency(selectedCurrency));
+  },
+  getOrders: (selectedCurrency) => {
+    dispatch(getOrders(selectedCurrency));
   },
 });
 
