@@ -7,7 +7,6 @@ import {
 
 function* getOrders({ selectedCurrency }) {
   try {
-    debugger
     const orders = yield fetch(`https://poloniex.com/public?command=returnLoanOrders&currency=${selectedCurrency}`)
       .then(res => res.json())
       .catch(e => {
